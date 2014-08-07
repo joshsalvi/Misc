@@ -5,9 +5,9 @@
 clear all; close all;
 
 % INPUT a vector of stiffnesses
-kvec(:,1) = [100 100 100 200 200 200 300 300 300];   % µN/m
+kvec(:,1) = [100 100 100 200 200 200 300 300 300 400 400 400 500 500 500 600 600 600 700 700 700];   % µN/m
 % INPUT a vector of amplitudes
-amplvec(:,1) = [24 26 20 19 22 10 9 8 10];           % nm
+amplvec(:,1) = [55 46 50 19 22 10 9 8 9 9 9 9 8 9 8 8 8 8 8 7.5 8];           % nm
 % The above vectors must have the same length!
 
 % Create a scatter plot of the stiffnesses and vectors
@@ -72,10 +72,10 @@ axis([xmin-1 xmax+1 ymin-1 ymax+1])
 
 % Calculate Pearson’s correlation coefficient
 % for comparison
-[rpears,ppears] = corr(kvec,amplvec,'type’,’Pearson’);
+[rpears,ppears] = corr(kvec,amplvec,'type','Pearson');
 
-display(sprintf('%s %s’,’Pearsons r from corr() function: ',num2str(rpears)));
+display(sprintf('%s %s','Pearsons r from corr() function: ',num2str(rpears)));
 display(sprintf('%s %s','Spearmans rho from corr() function: ',num2str(rho)));
 display(sprintf('%s %s','Spearmans rho from hand calculation: ',num2str(rho2)));
-display(sprintf('%s %s','p-value from Pearsons correlation: ',num2str(rpears)));
-%display(sprintf('%s %s','p-value from Spearmans correlation: ',num2str(prho)));
+display(sprintf('%s %s','p-value from Pearsons correlation: ',num2str(ppears)));
+display(sprintf('%s %s','p-value from Spearmans correlation: ',num2str(prho)));
