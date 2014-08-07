@@ -70,7 +70,12 @@ axis([xmin-1 xmax+1 ymin-1 ymax+1])
 % coefficient of the ranked variables.
 [rho2] = corr(kveci,amplveci,'type','Pearson');
 
+% Calculate Pearson’s correlation coefficient
+% for comparison
+[rpears,ppears] = corr(kvec,amplvec,'type’,’Pearson’);
+
+display(sprintf('%s %s’,’Pearsons r from corr() function: ',num2str(rpears)));
 display(sprintf('%s %s','Spearmans rho from corr() function: ',num2str(rho)));
 display(sprintf('%s %s','Spearmans rho from hand calculation: ',num2str(rho2)));
-%display(sprintf('%s %s','p-value from corr() function: ',num2str(prho)));
-%display(sprintf('%s %s','p-value from hand calculation: ',num2str(prho2)));
+display(sprintf('%s %s','p-value from Pearsons correlation: ',num2str(rpears)));
+%display(sprintf('%s %s','p-value from Spearmans correlation: ',num2str(prho)));

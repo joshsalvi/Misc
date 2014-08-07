@@ -1,0 +1,227 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>SpearmanTutorial</title><meta name="generator" content="MATLAB 8.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-08-07"><meta name="DC.source" content="SpearmanTutorial.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">% Calculate Spearman's correlation - A Tutorial</span>
+<span class="comment">% This script calculate's Spearman's correlation using MATLAB's built-in</span>
+<span class="comment">% methods and also does it manually. Notes are provided for each step.</span>
+
+clear <span class="string">all</span>; close <span class="string">all</span>;
+
+<span class="comment">% INPUT a vector of stiffnesses</span>
+kvec(:,1) = [100 100 100 200 200 200 300 300 300];   <span class="comment">% &micro;N/m</span>
+<span class="comment">% INPUT a vector of amplitudes</span>
+amplvec(:,1) = [24 26 20 19 22 10 9 8 10];           <span class="comment">% nm</span>
+<span class="comment">% The above vectors must have the same length!</span>
+
+<span class="comment">% Create a scatter plot of the stiffnesses and vectors</span>
+figure(1);
+subplot(2,1,1);
+scatter(kvec,amplvec,<span class="string">'k.'</span>); xlabel(<span class="string">'Stiffness (&micro;N/m)'</span>);ylabel(<span class="string">'Amplitude (nm)'</span>);
+xmin = min(kvec);xmax=max(kvec);ymin=min(amplvec);ymax=max(amplvec);
+axis([xmin-50 xmax+50 ymin-5 ymax+5])
+
+
+<span class="comment">% Use MATLAB's built-in function to calculate Spearman's rho and the</span>
+<span class="comment">% p-value associated with it.</span>
+[rho,prho] = corr(kvec,amplvec,<span class="string">'type'</span>,<span class="string">'Spearman'</span>);
+
+<span class="comment">% We now rank these parameters by hand</span>
+<span class="comment">% First, create the ranked variables. This is done using a sorting method</span>
+<span class="comment">% in this script.</span>
+<span class="comment">% To do so, sort the variables in order and assign each a ranking. For</span>
+<span class="comment">% those that are duplicates in each vector, assign the mean of their</span>
+<span class="comment">% possible ranks.</span>
+
+
+<span class="comment">% Sort both the stiffnesses and the forces</span>
+kvecu = unique(kvec);   <span class="comment">% Find the unique variables</span>
+[xs,z1] = sort(kvec);   <span class="comment">% Sort the stiffness vector</span>
+[z1,z2] = sort(z1);     <span class="comment">% Sort the indixes</span>
+r = (1:length(kvec))';
+r=r(z2);
+
+<span class="keyword">for</span> i=1:length(kvecu)
+    s=find(kvecu(i)==kvec);
+    r(s,1) = mean(r(s));
+<span class="keyword">end</span>
+kveci = r;
+
+clear <span class="string">xs</span> <span class="string">z1</span> <span class="string">z2</span> <span class="string">r</span> <span class="string">s</span>
+amplvecu = unique(amplvec);
+[xs,z1] = sort(amplvec);   <span class="comment">% Sort the stiffness vector</span>
+[z1,z2] = sort(z1);     <span class="comment">% Sort the indixes</span>
+r = (1:length(kvec))';
+r=r(z2);
+
+<span class="keyword">for</span> i=1:length(amplvecu)
+    s=find(amplvecu(i)==amplvec);
+    r(s,1) = mean(r(s));
+<span class="keyword">end</span>
+amplveci = r;
+
+
+<span class="comment">% Create a second plot of the ranked variables.</span>
+figure(1);
+subplot(2,1,2);
+plot(kveci,amplveci,<span class="string">'k.'</span>); xlabel(<span class="string">'Ranked Stiffness'</span>); ylabel(<span class="string">'Ranked Amplitude'</span>);
+xmin = min(kveci);xmax=max(kveci);ymin=min(amplveci);ymax=max(amplveci);
+axis([xmin-1 xmax+1 ymin-1 ymax+1])
+
+<span class="comment">% Calculate Spearman's rho</span>
+
+<span class="comment">% In the presence of tied ranks simply find the Pearson's correlation</span>
+<span class="comment">% coefficient of the ranked variables.</span>
+[rho2] = corr(kveci,amplveci,<span class="string">'type'</span>,<span class="string">'Pearson'</span>);
+
+display(sprintf(<span class="string">'%s %s'</span>,<span class="string">'Spearmans rho from corr() function: '</span>,num2str(rho)));
+display(sprintf(<span class="string">'%s %s'</span>,<span class="string">'Spearmans rho from hand calculation: '</span>,num2str(rho2)));
+<span class="comment">%display(sprintf('%s %s','p-value from corr() function: ',num2str(prho)));</span>
+<span class="comment">%display(sprintf('%s %s','p-value from hand calculation: ',num2str(prho2)));</span>
+</pre><pre class="codeoutput">Spearmans rho from corr() function:  -0.87327
+Spearmans rho from hand calculation:  -0.87327
+</pre><img vspace="5" hspace="5" src="SpearmanTutorial_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Calculate Spearman's correlation - A Tutorial
+% This script calculate's Spearman's correlation using MATLAB's built-in
+% methods and also does it manually. Notes are provided for each step.
+
+clear all; close all;
+
+% INPUT a vector of stiffnesses
+kvec(:,1) = [100 100 100 200 200 200 300 300 300];   % µN/m
+% INPUT a vector of amplitudes
+amplvec(:,1) = [24 26 20 19 22 10 9 8 10];           % nm
+% The above vectors must have the same length!
+
+% Create a scatter plot of the stiffnesses and vectors
+figure(1);
+subplot(2,1,1);
+scatter(kvec,amplvec,'k.'); xlabel('Stiffness (µN/m)');ylabel('Amplitude (nm)');
+xmin = min(kvec);xmax=max(kvec);ymin=min(amplvec);ymax=max(amplvec);
+axis([xmin-50 xmax+50 ymin-5 ymax+5])
+
+
+% Use MATLAB's built-in function to calculate Spearman's rho and the
+% p-value associated with it. 
+[rho,prho] = corr(kvec,amplvec,'type','Spearman');
+
+% We now rank these parameters by hand
+% First, create the ranked variables. This is done using a sorting method 
+% in this script.
+% To do so, sort the variables in order and assign each a ranking. For
+% those that are duplicates in each vector, assign the mean of their
+% possible ranks.
+
+
+% Sort both the stiffnesses and the forces
+kvecu = unique(kvec);   % Find the unique variables
+[xs,z1] = sort(kvec);   % Sort the stiffness vector
+[z1,z2] = sort(z1);     % Sort the indixes
+r = (1:length(kvec))';
+r=r(z2);
+
+for i=1:length(kvecu)
+    s=find(kvecu(i)==kvec);    
+    r(s,1) = mean(r(s));    
+end
+kveci = r;
+
+clear xs z1 z2 r s
+amplvecu = unique(amplvec);
+[xs,z1] = sort(amplvec);   % Sort the stiffness vector
+[z1,z2] = sort(z1);     % Sort the indixes
+r = (1:length(kvec))';
+r=r(z2);
+
+for i=1:length(amplvecu)
+    s=find(amplvecu(i)==amplvec);    
+    r(s,1) = mean(r(s));    
+end
+amplveci = r;
+
+
+% Create a second plot of the ranked variables.
+figure(1);
+subplot(2,1,2);
+plot(kveci,amplveci,'k.'); xlabel('Ranked Stiffness'); ylabel('Ranked Amplitude');
+xmin = min(kveci);xmax=max(kveci);ymin=min(amplveci);ymax=max(amplveci);
+axis([xmin-1 xmax+1 ymin-1 ymax+1])
+
+% Calculate Spearman's rho
+
+% In the presence of tied ranks simply find the Pearson's correlation
+% coefficient of the ranked variables.
+[rho2] = corr(kveci,amplveci,'type','Pearson');
+
+display(sprintf('%s %s','Spearmans rho from corr() function: ',num2str(rho)));
+display(sprintf('%s %s','Spearmans rho from hand calculation: ',num2str(rho2)));
+%display(sprintf('%s %s','p-value from corr() function: ',num2str(prho)));
+%display(sprintf('%s %s','p-value from hand calculation: ',num2str(prho2)));
+
+##### SOURCE END #####
+--></body></html>
