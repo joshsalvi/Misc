@@ -11,4 +11,8 @@ function nb = freedmandiaconis(x)
 bw = 2*iqr(x)/length(x)^(1/3);
 nb = ceil((max(x) - min(x))/bw);
 
+if nb < 4 || isinf(nb) == 1 || isnan(nb) == 1
+    nb = 4;
+end
+
 end
