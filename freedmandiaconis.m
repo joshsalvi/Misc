@@ -14,8 +14,8 @@ nb = ceil((max(x) - min(x))/bw);
 if nb < 4 || isinf(nb) == 1 || isnan(nb) == 1
     nb = 4;
 end
-if nb > 5e2
-    nb = 5e2;
+if nb > 1e3
+    nb = 1e3;
 end
 
 end
