@@ -1,7 +1,7 @@
 function CalciumTotal(FreeCalcium)
 %Enter the desired Free Calcium concentration in uM
 %Enter the buffer concentration
-Bt=1000;            % BAPTA concentration in uM (micromoles)
+Bt=0;            % BAPTA concentration in uM (micromoles)
 Ca = FreeCalcium;   % in uM (micromoles)       
 Kd=.14;            % in uM (micromoles); this is the Kd for BAPTA
 
