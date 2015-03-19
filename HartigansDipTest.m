@@ -28,7 +28,7 @@ ifault=0;
 % Check that N is positive
 if (N<=0) 
    ifault=1;
-   fprintf(1,'\nHartigansDipTest.    InputError :  ifault=%d\n',ifault);
+  % fprintf(1,'\nHartigansDipTest.    InputError :  ifault=%d\n',ifault);
    return;
 end;
 
@@ -38,7 +38,7 @@ if (N==1)
    xu=x(N);
    dip=0.0;
    ifault=2;
-   fprintf(1,'\nHartigansDipTest.    InputError :  ifault=%d\n',ifault);
+   %fprintf(1,'\nHartigansDipTest.    InputError :  ifault=%d\n',ifault);
    return;
 end;
 
@@ -46,7 +46,7 @@ if (N>1)
    % Check that X is sorted
    if (x ~= sort(x))
       ifault=3;
-      fprintf(1,'\nHartigansDipTest.    InputError :  ifault=%d\n',ifault);
+      %fprintf(1,'\nHartigansDipTest.    InputError :  ifault=%d\n',ifault);
       return;
    end;
    % Check for all values of X identical OR for case 1<N<4
@@ -55,7 +55,7 @@ if (N>1)
       xu=x(N);
       dip=0.0;
       ifault=4;
-      fprintf(1,'\nHartigansDipTest.    InputError :  ifault=%d\n',ifault);
+      %fprintf(1,'\nHartigansDipTest.    InputError :  ifault=%d\n',ifault);
       return;
    end;
 end;
