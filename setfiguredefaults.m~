@@ -1,0 +1,27 @@
+function setfiguredefaults(N)
+% Set the figure defaults, with axes order for N axes
+%
+% setfiguredefaults(N)
+%
+% where N is the number of axes for your colormap
+%
+% Joshua Salvi
+% jsalvi@rockefeller.edu
+%
+%
+% NOTE: Requires the 'ametrine' colormap
+%
+
+set(0,'defaultFigureColormap',jet)
+set(0,'defaultAxesColorOrder',ametrine(N))
+set(0,'DefaultTextFontName','Times')
+set(0,'DefaultTextFontUnits','Points')
+set(0,'DefaultTextFontSize',18)
+set(0,'DefaultAxesFontName','Times')
+set(0,'DefaultAxesFontSize',16)
+set(0,'DefaultAxesGridLineStyle',':')
+set(0,'defaultFigureColor','White')
+set(0,'DefaultFigurePaperType','a4letter')
+set(0,'defaultFigurePosition',[1200 100 600 600])
+set(0,'DefaultLineColor','Black')
+set(0,'defaultAxesColor',[1 1 1])
