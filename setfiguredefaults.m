@@ -22,6 +22,7 @@ else
 end
 set(0,'DefaultTextFontName','Times')
 set(0,'DefaultTextFontUnits','Points')
+set(0,'defaultlinelinewidth',2)
 set(0,'DefaultTextFontSize',20)
 set(0,'DefaultAxesFontName','Times')
 set(0,'DefaultAxesFontSize',16)
