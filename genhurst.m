@@ -45,7 +45,7 @@ elseif size(S,1)>1 & size(S,2)>1
     return
 end
 if size(S,1) < (maxT*4 | 60)
-    warning('Data serie very short!')
+    warning('Data series very short!')
 end
 L=length(S);
 lq = length(q);
@@ -69,16 +69,18 @@ for Tmax=5:maxT
         cc(2) = my - cc(1)*mx;
         ddVd  = dV - cc(1);
         VVVd  = VV - cc(1).*(1:N) - cc(2);
-         %figure
-         %plot(X,Y,'o')
-         %hold on
-         %plot(X,cc(1)*X+cc(2),'-r')
-         %figure
-         %plot(1:N-1,dV,'ob')
-         %hold on
-         %plot([1 N-1],mean(dV)*[1 1],'-b')
-         %plot(1:N-1,ddVd,'xr')
-         %plot([1 N-1],mean(ddVd)*[1 1],'-r')
+        %{
+         figure
+         plot(X,Y,'o')
+         hold on
+         plot(X,cc(1)*X+cc(2),'-r')
+         figure
+         plot(1:N-1,dV,'ob')
+         hold on
+         plot([1 N-1],mean(dV)*[1 1],'-b')
+         plot(1:N-1,ddVd,'xr')
+         plot([1 N-1],mean(ddVd)*[1 1],'-r')
+        %}
         for qq=1:lq
             mcord(tt,qq)=mean(abs(ddVd).^q(qq))/mean(abs(VVVd).^q(qq));
         end
