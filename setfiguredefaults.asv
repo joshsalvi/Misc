@@ -110,4 +110,3 @@ if ischar(config.maxColor)
 else
     cmap(end,:) = config.maxColor;
 end
-end
