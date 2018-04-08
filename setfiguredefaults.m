@@ -15,20 +15,17 @@ function setfiguredefaults(varargin)
 %
 % NOTE: Requires the 'ametrine' colormap
 %
-<<<<<<< HEAD
 figure;
 if nargin > 0
     try
         set(0,'defaultAxesColorOrder',ametrine(varargin{1}))
+        N = varargin{1};
     catch
         disp('Invalid number of axes. Defaulting to zero.');
         set(0,'defaultAxesColorOrder',[0 0 0])
     end
-=======
-
 if exist('N')==1
     set(0,'defaultAxesColorOrder',ametrine(N))
->>>>>>> origin/master
 else
     set(0,'defaultAxesColorOrder',[0 0 0])
 end
@@ -45,7 +42,6 @@ set(0,'DefaultFigurePaperType','a4letter')
 set(0,'defaultFigurePosition',[1200 100 700 700])
 set(0,'defaultAxesColor',[1 1 1])
 set(0,'defaultLineMarker','None')
-<<<<<<< HEAD
 if nargin == 2
     if varargin{2} == 1
         set(0,'DefaultFigureWindowStyle','docked')
@@ -61,15 +57,10 @@ end
 %%%%%%%%%%%%%%% ametrine() %%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function cmap=ametrine(n,varargin)
-=======
-
-end
-
 
 function cmap=ametrine(n,varargin)
 
->>>>>>> origin/master
+
 p=inputParser;
 p.addParamValue('gamma',1.8, @(x)x>0);
 p.addParamValue('minColor','none');
@@ -88,14 +79,12 @@ else
 end
 config = p.Results;
 n=config.n;
-<<<<<<< HEAD
-=======
+
 
 %the ControlPoints and the spacing between them
 
 %the ControlPoints in a bit more colorful variant -> slightly less
 %isoluminescence, but gives a more vivid look
->>>>>>> origin/master
 cP(:,1) = [30  60  150]./255; k(1)=1;  %cyan at index 1
 cP(:,2) = [180 90  155]./255; k(3)=17; %purple at index 17
 cP(:,3) = [230 85  65 ]./255; k(4)=32; %redish at index 32
@@ -105,12 +94,10 @@ for i=1:3
     ind{i} = linspace(k(i),k(i+1),(k(i+1)-k(i)+1))';
 end
 cmap = interp1((1:4),cP',linspace(1,4,64)); % for non-iso points, a normal interpolation gives better results
-<<<<<<< HEAD
 cmap = abs(interp1(linspace(0,1,size(cmap,1)),cmap,linspace(0,1,n)));
 if config.invert
     cmap = flipud(cmap);
 end
-=======
 
 
 % normal linear interpolation to achieve the required number of points for the colormap
@@ -120,7 +107,6 @@ if config.invert
     cmap = flipud(cmap);
 end
 
->>>>>>> origin/master
 if ischar(config.minColor)
     if ~strcmp(config.minColor,'none')
         switch config.minColor
@@ -152,5 +138,6 @@ if ischar(config.maxColor)
     end
 else
     cmap(end,:) = config.maxColor;
+end
 end
 end
